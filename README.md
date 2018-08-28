@@ -3,6 +3,8 @@
 In this project I give a brief overview of the chapter “Constraint Satisfaction Problems”  from Russell and Norvig’s book Artificial Intelligence a Modern Approach (3rd Edition).  
 I also implement in `python` two constraint propagation programs.  One   program solves Sudoku puzzles and the other solves the Australian map coloring problem.  
 
+![Constraint image](images/constraint.png)
+
 # What is Constraint Satisfaction?
 A Constraint Satisfaction Problem (CSP) is a search problem that uses a factored representation for each state where each state has a defined set of variables with possible values. 
  With a CSP we solve the problem by finding a state where the defined variables have a value that satisfies all constraints.  The main idea of a CSP is to be more efficient and eliminate a large proportion of the search space.  A CSP differs from searching a space of states which uses domain-specific heuristics and then tests for goal states.        
@@ -33,11 +35,9 @@ Many CSPs cannot be solved strictly by inference and will require searching for 
 Here I discuss implementing constraint propagation in `python` by developing programs for solving Sudoku puzzles and the Australian map coloring problem (described in section 6.1.1 of chapter six).  Our implementation has three modules:
 >  1. `solver.py`:  Contains an abstract base class called `ConstraintSolver`, which defines two functions for reducing the problem using arc consistency and a function for searching for a solution when inference is not enough. 
     
->> * The first reduction function is an elimination algorithm that removes any variable in the constraint that has a singleton domain and then removes that value from the domains of the remaining variables.  The second reduction function is an only-choice algorithm that assigns a value to a variable when that value does not fit in any of the other variables.
-
->> * The search function is a depth-first recursive method that attempts to find a solution by choosing the variable with the least remaining values in its domain. It then iteratively assigns to this variable one of its domain values, and  calls the reduction functions to try and find a solution.  If a solution is found it returns this solved state, otherwise it returns false.
-
->> * The `ConstraintSolver` abstract class also has other properties and methods to take advantage of code reuse.  
+> * The first reduction function is an elimination algorithm that removes any variable in the constraint that has a singleton domain and then removes that value from the domains of the remaining variables.  The second reduction function is an only-choice algorithm that assigns a value to a variable when that value does not fit in any of the other variables.
+> * The search function is a depth-first recursive method that attempts to find a solution by choosing the variable with the least remaining values in its domain. It then iteratively assigns to this variable one of its domain values, and  calls the reduction functions to try and find a solution.  If a solution is found it returns this solved state, otherwise it returns false.
+> * The `ConstraintSolver` abstract class also has other properties and methods to take advantage of code reuse.  
 
 > 2. `sudoku.py`:   The `sudoku.py` module has a class called `Sudoku` to solve Sudoku puzzles. The `Sudoku` class inherits from the `ConstraintSolver` abstract base class.  The `Sudoku` class maintains a list of variables for each box (a Sudoku board has 81 boxes) and domain values 1 through 9.   The class also defines global constraints for the various Sudoku constraints groups (i.e. rows, columns and squares).  We discuss more about the rules of Sudoku along with a demonstration on using the `Sudoko` class in the `sudoku.ipynb` jupyter notebook.    
 
